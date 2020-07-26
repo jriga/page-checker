@@ -1,0 +1,9 @@
+{
+  "urls": [
+    "http://google.com",
+    "http://bbc.com"
+  ],
+  "frequency": 5,
+  "persist": true,
+  "db_path": "/home/jriga/devel/checker-io/tmp/database.sql"
+}
