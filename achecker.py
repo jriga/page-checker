@@ -64,7 +64,7 @@ else:
 
 
 runner = AsyncRunner(
-    core.checkall(c),
+    ft.partial(core.checkall, c),
     frequency=c['frequency'])
 
 runner.before_run(

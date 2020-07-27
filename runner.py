@@ -5,8 +5,8 @@ import functools as ft
 
 
 class AsyncRunner:
-    def __init__(self, coro, frequency=None):
-        self.coro = coro
+    def __init__(self, fn, frequency=None):
+        self.fn = fn
         self.task = None
         self.callbacks = []
         self.frequency = frequency
@@ -31,8 +31,8 @@ class AsyncRunner:
 
     async def periodic_task(self):
         while True:
-            logging.debug('In periodic_task awaiting self.coro')
-            res = await self.coro
+            logging.debug('In periodic_task awaiting self.fn')
+            res = await self.fn()
             logging.debug('- '*30)
             await asyncio.sleep(self.frequency)
 
@@ -40,12 +40,12 @@ class AsyncRunner:
         logging.debug('add exception handler')
         self.loop.set_exception_handler(self.exception_handler)
 
-        if self.frequency
-        logging.debug(f'frequency == {self.frequency}')
-        self.task = self.loop.create_task(self.periodic_task())
+        if self.frequency:
+            logging.debug(f'frequency == {self.frequency}')
+            self.task = self.loop.create_task(self.periodic_task())
         else:
             logging.debug('add coroutine')
-            self.task = self.loop.create_task(self.coro)
+            self.task = self.loop.create_task(self.fn())
 
         logging.debug(f'add stop signals for {self.stop_signals}')
         for s in self.stop_signals:
