@@ -4,6 +4,8 @@ How to run
 ```bash
 $ pip install pipenv
 $ pipenv install
+$ mkdir tmp; touch tmp/database.sql
+$ pipenv shell
 $ python achecker.py -f 15 -p true -l debug
 ```
 
